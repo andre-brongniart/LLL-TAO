@@ -132,7 +132,7 @@ int main(int argc, char** argv)
         true,
         config::GetBoolArg(std::string("-meters"), false),
         true,
-        30000);
+        10000);
 
     /* Get the port for the Core API Server. */
     nPort = static_cast<uint16_t>(config::GetArg(std::string("-rpcport"), config::fTestNet.load() ? TESTNET_RPC_PORT : MAINNET_RPC_PORT));
@@ -303,7 +303,7 @@ int main(int argc, char** argv)
 
 
         /* If wallet is not encrypted, it is unlocked by default. Start stake minter now. It will run until stopped by system shutdown. */
-        if(config::GetBoolArg(std::string("-beta")) && !Legacy::Wallet::GetInstance().IsCrypted())
+        if(!Legacy::Wallet::GetInstance().IsCrypted())
             Legacy::LegacyMinter::GetInstance().Start();
 
 
